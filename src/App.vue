@@ -4,6 +4,7 @@
 <h1>Patient's Psain</h1>
 <Patientcause />
 
+
 </template>
 
 <script>
