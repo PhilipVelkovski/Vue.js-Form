@@ -8,9 +8,6 @@
 export default {
   components: { Patientform },
     name:'PatientCause',
-    data(){
-        
-    }
 };
 </script>
 <style lang="css">

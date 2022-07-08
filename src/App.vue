@@ -1,9 +1,9 @@
 <template>
- <h1>Patient's Basic Information</h1> 
-  <Patientform />
-  
- <h1>Patient's Psain</h1>
- <PatientCause />
+<h1>Patient's Basic Information</h1>
+<Patientform />
+<h1>Patient's Psain</h1>
+<Patientcause />
+
 </template>
 
 <script>
@@ -15,7 +15,6 @@ export default {
   components: {
     Patientform,
     PatientCause,
-
   },  
 }
 </script>
