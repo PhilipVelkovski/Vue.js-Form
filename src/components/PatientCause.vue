@@ -6,8 +6,8 @@
 <script>
 
 export default {
-  components: { Patientform },
-    name:'PatientCause',
+ name:'PatientCause',  
+    
 };
 </script>
 <style lang="css">
