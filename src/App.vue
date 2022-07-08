@@ -1,15 +1,22 @@
 <template>
-  <h1>Hello World</h1>
+ <h1>Patient's Basic Information</h1> 
+  <Patientform />
   
+ <h1>Patient's Psain</h1>
+ <PatientCause />
 </template>
 
 <script>
+import Patientform from './components/Patientform.vue'; 
+import PatientCause from './components/PatientCause.vue';
 
 export default {
   name: 'App',
   components: {
-    
-  }
+    Patientform,
+    PatientCause,
+
+  },  
 }
 </script>
 
@@ -21,5 +28,14 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body{
+  background-color:#96d8968f;
+   background-image: url("/Icons/doctor.png");
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size: 300px 300px;
+     background-attachment: fixed;
+
 }
 </style>
