@@ -29,6 +29,8 @@ components{
 -https://www.youtube.com/watch?v=qZXt1Aom3Cs&t=1705sab_channel=TraversyMedia : Opsto Vue.js - podelba na poveke komponenti 
 -https://www.youtube.com/watch?v=ixOcve5PX-Q&t=70s&ab_channel=TheNetNinja
 : Vue.js Forms intro
+-Handelbars: 
+https://futurestud.io/tutorials/hapi-use-vue-js-mustache-tags-in-handlebars-templates#:~:text=associate%20with%20it.-,To%20combine%20handlebars%20and%20Vue.,js%20should%20pick%20up.&text=All%20syntax%20templates%20prefixed%20with,and%20left%20within%20the%20template.
 
 ## Project setup
 ```

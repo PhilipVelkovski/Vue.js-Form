@@ -1,28 +1,32 @@
 <template>
-<h1>Patient's Basic Information</h1>
-<Patientform />
-<h1>Patient's Psain</h1>
-<Patientcause />
 
+
+<Patientform />
+<Doctortypeform />
 </template>
 
 <script>
 import Patientform from './components/Patientform.vue'; 
-import PatientCause from './components/PatientCause.vue';
+import Header from './components/Header.vue'; 
+import Doctortypeform from './components/Doctortypeform.vue'; 
+
 
 export default {
   name: 'App',
   components: {
+    Header,
     Patientform,
-    PatientCause,
-  },  
+    Doctortypeform,
+  },
+
+  
 }
 
 
 
 </script>
 
-<style>
+<style> 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
