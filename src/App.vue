@@ -1,25 +1,27 @@
 <template>
-
-
 <Patientform />
-<Doctortypeform />
+<br>
+
+
+
+
 </template>
 
 <script>
 import Patientform from './components/Patientform.vue'; 
-import Header from './components/Header.vue'; 
-import Doctortypeform from './components/Doctortypeform.vue'; 
+
+
+
+
+
 
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Patientform,
-    Doctortypeform,
+   Patientform,
   },
 
-  
 }
 
 

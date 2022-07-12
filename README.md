@@ -32,20 +32,7 @@ components{
 -Handelbars: 
 https://futurestud.io/tutorials/hapi-use-vue-js-mustache-tags-in-handlebars-templates#:~:text=associate%20with%20it.-,To%20combine%20handlebars%20and%20Vue.,js%20should%20pick%20up.&text=All%20syntax%20templates%20prefixed%20with,and%20left%20within%20the%20template.
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+-https://medium.com/swlh/build-a-checkbox-component-with-vue3-font-awesome-tailwind-css-99d176094b3d
+ Za checkbox komponentata 
