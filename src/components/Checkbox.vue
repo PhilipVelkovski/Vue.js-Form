@@ -1,15 +1,15 @@
 <template>
 <div>
-
   <input type="checkbox" 
-   
     :checked="checked"
-    :id="enterId" 
+    :id="enterId"
+    v-bind="$attrs"
+    @click="$emit('clickbox',this.checked)" 
     @input="(event) => $emit('update:checked', event.target.checked)"
    />
-    <label :for="enterId">{{ label }}</label>
+   <label :for="enterId">{{ label }}</label>
 </div>
-  
+
 </template>
 
 <script>
@@ -20,15 +20,12 @@ export default {
         default:"",
     },
     enterId:{
-        type:String,
-        default:"",
+        type:[String],
     },
     checked:{
-        type:Boolean,
+          type:Boolean,
     }
-
- 
-
+    
   },
 };
 </script>
