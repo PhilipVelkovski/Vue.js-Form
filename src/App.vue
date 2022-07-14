@@ -1,11 +1,6 @@
 <template>
 
 <Patientform />
-<<<<<<< HEAD
-
-=======
-<br>
->>>>>>> New-Components
 
 </template>
 
