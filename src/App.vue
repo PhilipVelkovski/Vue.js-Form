@@ -1,7 +1,7 @@
 <template>
 
 <Patientform />
-<br>
+
 
 </template>
 
