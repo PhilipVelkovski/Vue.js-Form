@@ -1,26 +1,16 @@
 <template>
 <Patientform />
 <br>
-
-
-
-
 </template>
 
 <script>
 import Patientform from './components/Patientform.vue'; 
 
-
-
-
-
-
-
 export default {
   name: 'App',
   components: {
    Patientform,
-  },
+  }, 
 
 }
 
