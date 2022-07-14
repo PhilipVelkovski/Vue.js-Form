@@ -1,6 +1,7 @@
 <template>
 <Patientform />
 <br>
+
 </template>
 
 <script>

@@ -1,7 +1,6 @@
 <!-- 2 -->
 <template>
-  <p>Enter Doctor's Profession</p>
-
+  
   <div :key="doctor.id" v-for="doctor in doctors">
     <Dropdownoptions @selectedDoctor="$emit('selectedDoctor',doctor.text)" :doctor="doctor" />
   </div>

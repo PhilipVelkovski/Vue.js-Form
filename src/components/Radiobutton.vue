@@ -3,17 +3,16 @@
     <!-- Prikazi go label-ot samo ako e vnesen inace ne go baraj -->
     <label v-if="label"> {{ label }} </label>
     <input
-      type="text"
+      type="radio"
       :id="id"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       v-bind="$attrs"
-      @blur="$emit('check',this.id)"
-      @change="$emit('checked',this.id)"
+      @change="$emit('change',this.id)"
     />
     <p v-if="error">{{error}}</p>
       <!--
-           Go vrzuvash :value="modelValue" definiran vo komponentatta
+      @change="$emit('checked',this.id)"      Go vrzuvash :value="modelValue" definiran vo komponentatta
            @input = "$emit" ... so ova prakas do parent kalsata za inputut da moze da se socuva tamu so v-model
            v-bind="attrs" => site atributi muzes da gi menuvas dinamicki poradi toa sto im gi svrzuvash tuka
       -->
@@ -37,12 +36,14 @@ const props = defineProps({
     default:'',
   },
   modelValue: {
-    type: [String,Boolean,Array],
+    type: [String,Boolean],
     default: "",
   },
+  
   // Kako da defines emit za sekoj input field value ili id
  
 });
+
 function check(e){
    console.log("this is child calling"); 
 }
