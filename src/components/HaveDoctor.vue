@@ -1,13 +1,8 @@
 <!-- 1 -->
 <template>
-  <FormTitle
-    title="Enter you'r doctor's Information"
-    explanation="
-    Enter your doctor's Information so that we can contact him 
-    "
-  />
-
+ 
   <div>
+    <p>Enter Doctor's Profession</p>
     <Dropdown @selectedDoctor="EnterdDoctor" :doctors="doctorTypes" />
   </div>
   <div class="have-doctor-field">
@@ -18,7 +13,7 @@
         :error="error"
         v-model="HaveDoctor.email"
         label="Doctors email"
-         @check="checkDoctarEmail"
+        @check="checkDoctarEmail"
       />
     </div>
     <div class="field">
@@ -30,27 +25,14 @@
       />
     </div>
   </div>
-
-  <!--
-        ime na doctor
-        vid na doctor
-        negov email 
-
-
-        opptional = Phone
-        
-        orginacija: koja bolnica
-        
-      -->
 </template>
 <script>
-import FormTitle from "./FormTitle.vue";
+
 import Inputfield from "./Inputfield.vue";
 import Dropdown from "./Dropdown.vue";
 const validMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 export default {
   components: {
-    FormTitle,
     Inputfield,
     Dropdown,
   },
@@ -59,10 +41,11 @@ export default {
       HaveDoctor: {
         name: "",
         email: "",
+         EnterdDoctorTypes: [],
       },
-      error:'',
+      error: "",
       doctorTypes: [],
-      EnterdDoctorTypes: [],
+     
     };
   },
   created() {
@@ -116,11 +99,11 @@ export default {
       );
       // for(var i = 0; i< EnterdDoctorTypes.length; i++){
       //   if(!(this.EnterdDoctorTypes[i].includes(DoctorName))){
-            
-      //   } 
+
+      //   }
       // }
-      this.EnterdDoctorTypes.push(DoctorName);
-      console.log(this.EnterdDoctorTypes);
+      this.HaveDoctor.EnterdDoctorTypes.push(DoctorName);
+      console.log(this.HaveDoctor.EnterdDoctorTypes);
       console.log(DoctorName);
     },
     checkDoctarEmail(e) {

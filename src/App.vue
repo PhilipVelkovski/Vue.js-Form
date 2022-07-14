@@ -1,7 +1,11 @@
 <template>
 
 <Patientform />
+<<<<<<< HEAD
 
+=======
+<br>
+>>>>>>> New-Components
 
 </template>
 
@@ -13,9 +17,7 @@ export default {
   components: {
    Patientform,
   }, 
-
 }
-
 
 
 </script>
