@@ -5,7 +5,7 @@
     Please enter your Information so that the Doctor can contact you
     "
   />
-  <form @submit.prevent="handleForm(this.form)">
+  <form @submit.prevent="handleForm">
     <div class="input-Inputfields">
       <Inputfield
         id="name"
@@ -270,7 +270,7 @@ import Donthavedoctor from "./Donthavedoctor.vue";
 import Checkbox from "./Checkbox.vue";
 import HaveDoctor from "./HaveDoctor.vue";
 import Button from "./Button.vue";
-import{ EventBus } from '@/EventBus';
+
 //API
 import { ref } from "vue";
 
@@ -280,7 +280,6 @@ const phoneValidaton = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}$/
 export default {
   name: "Patientform",
   components: {
-  
     Button,
     Donthavedoctor,
     Radiobutton,
