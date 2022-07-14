@@ -1,26 +1,26 @@
 <template>
-<h1>Patient's Basic Information</h1>
-<Patientform />
-<h1>Patient's Psain</h1>
-<Patientcause />
 
+<Patientform />
+<br>
 
 </template>
 
 <script>
 import Patientform from './components/Patientform.vue'; 
-import PatientCause from './components/PatientCause.vue';
 
 export default {
   name: 'App',
   components: {
-    Patientform,
-    PatientCause,
-  },  
+   Patientform,
+  }, 
+
 }
+
+
+
 </script>
 
-<style>
+<style> 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
