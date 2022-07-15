@@ -1,5 +1,5 @@
 <template>
-  <button @click="submitForm">{{text}}</button>
+<button @click="$emit('onclickbtn')">{{text}}</button>
 </template>
 
 <script>
@@ -8,11 +8,7 @@ export default {
      text:String,
      default:'',
    },
-   methods:{
-    submitForm(){
-        console.log("i am the button");
-    }
-   }
+   
 }
 </script>
 

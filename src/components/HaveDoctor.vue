@@ -39,8 +39,8 @@ export default {
   data() {
     return {
       HaveDoctor: {
-        name: "",
-        email: "",
+        Doctorname: "",
+        Doctoremail: "",
          EnterdDoctorTypes: [],
       },
       error: "",
@@ -102,8 +102,13 @@ export default {
 
       //   }
       // }
+
       this.HaveDoctor.EnterdDoctorTypes.push(DoctorName);
+
+
       console.log(this.HaveDoctor.EnterdDoctorTypes);
+         this.$emit('doctors',this.HaveDoctor.EnterdDoctorTypes)
+
       console.log(DoctorName);
     },
     checkDoctarEmail(e) {

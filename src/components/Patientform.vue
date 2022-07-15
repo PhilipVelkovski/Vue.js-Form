@@ -13,7 +13,7 @@
         v-model="form.name"
         label="name"
         @check="checkInputfield"
-        :error="form.errors.name"
+        :error="errors.name"
       />
 
       <Inputfield
@@ -22,7 +22,7 @@
         v-model="form.lname"
         label="Surname"
         @check="checkInputfield"
-        :error="form.errors.lastname"
+        :error="errors.lastname"
       />
       <Inputfield
         id="age"
@@ -30,11 +30,11 @@
         v-model="form.age"
         label="Age"
         @check="checkInputfield"
-        :error="form.errors.age"
+        :error="errors.age"
       />
       <Inputfield
         id="email"
-        :error="form.errors.email"
+        :error="errors.email"
         type="email"
         v-model="form.email"
         label="Email"
@@ -42,7 +42,7 @@
       />
       <Inputfield
         id="phone"
-        :error="form.errors.phone"
+        :error="errors.phone"
         type="phone"
         v-model="form.phone"
         label="Phone Nubmer"
@@ -73,6 +73,7 @@
         enterId="haveDoc"
         @clickbox="clickedbox"
         v-model:checked="haveDoctor"
+        @doctors="selectedDoctorsArray"
       />
       <Checkbox
         label="I dont have a doctor"
@@ -88,8 +89,30 @@
     Enter your doctor's Information so that we can contact him 
     "
       />
-
-      <HaveDoctor />
+      <div>
+        <p>Enter Doctor's Profession</p>
+        <Dropdown @selectedDoctor="EnterdDoctor" :doctors="doctorTypes" />
+      </div>
+      <div class="have-doctor-field">
+        <div class="field">
+          <Inputfield
+            id="doctorEmail"
+            type="email"
+            :error="errors.docEmaileror"
+            v-model="form.Doctoremail"
+            label="Doctors email"
+            @check="checkDoctarEmail"
+          />
+        </div>
+        <div class="field">
+          <Inputfield
+            id="doctorsName"
+            type="text"
+            v-model="form.Doctorname"
+            label="Doctors name"
+          />
+        </div>
+      </div>
     </div>
 
     <div v-if="nothaveDoctor" class="input-Inputfields">
@@ -97,7 +120,7 @@
         title="Select the type of doctor you are looking for"
         explanation="Enter "
       />
-      <Donthavedoctor />
+      <Dropdown @selectedDoctor="EnterdDoctor" :doctors="doctorTypes" />
     </div>
     <p>this is i have doctor: {{ haveDoctor }}</p>
     <p>this is i dont have doctor: {{ nothaveDoctor }}</p>
@@ -124,7 +147,7 @@
             id="over 24h"
             type="radio"
             label="over 24h"
-            name="checkbox"
+            name="painDuration"
             v-model="form.painDuration"
             @checked="painDurationtype"
           />
@@ -134,7 +157,7 @@
             id="under 24h"
             type="radio"
             label="under 24h"
-            name="checkbox"
+            name="painDuration"
             v-model="form.painDuration"
             @checked="painDurationtype"
           />
@@ -144,7 +167,7 @@
             id="over a Week"
             type="radio"
             label="over a week"
-            name="checkbox"
+            name="painDuration"
             v-model="form.painDuration"
             @checked="painDurationtype"
           />
@@ -154,7 +177,7 @@
             id="under a Week"
             type="radio"
             label="under a week"
-            name="checkbox"
+            name="painDuration"
             v-model="form.painDuration"
             @checked="painDurationtype"
           />
@@ -167,7 +190,7 @@
             id="swollen"
             type="radio"
             label="swellnes"
-            name="checkbox"
+            name="painType"
             v-model="form.painType"
             @checked="painType"
           />
@@ -177,7 +200,7 @@
             id="Broken"
             type="radio"
             label="broken"
-            name="checkbox"
+            name="painType"
             v-model="form.painType"
             @checked="painType"
           />
@@ -187,7 +210,7 @@
             id="bruised"
             type="radio"
             label="bruised"
-            name="radio"
+            name="painType"
             v-model="form.painType"
             @checked="painType"
           />
@@ -201,7 +224,7 @@
             id="head"
             type="radio"
             label="Head"
-            name="radio"
+            name="painLocation"
             v-model="form.painLocation"
             @checked="painLocation"
           />
@@ -211,7 +234,7 @@
             id="torso"
             type="radio"
             label="torso"
-            name="radio"
+            name="painLocation"
             v-model="form.painLocation"
             @checked="painLocation"
           />
@@ -221,7 +244,7 @@
             id="lowerback"
             type="radio"
             label="lowerback"
-            name="radio"
+            name="painLocation"
             v-model="form.painLocation"
             @checked="painLocation"
           />
@@ -231,7 +254,7 @@
             id="arms"
             type="radio"
             label="arms"
-            name="radio"
+            name="painLocation"
             v-model="form.painLocation"
             @checked="painLocation"
           />
@@ -241,7 +264,7 @@
             id="legs"
             type="radio"
             label="legs"
-            name="radio"
+            name="painLocation"
             v-model="form.painLocation"
             @checked="painLocation"
           />
@@ -250,19 +273,16 @@
 
       <p>{{ form.painStart }}</p>
       <p>this is checked for duration: {{ form.painDuration }}</p>
-
       <p>this is checked for pain type: {{ form.painType }}</p>
 
       <p>this is checked for pain location: {{ form.painLocation }}</p>
-      <div class="buttondiv" style="text-align: end;">
-        <Button text="Submit" />
+      <div class="buttondiv" style="text-align: end">
+        <Button text="Submit" @onclickbtn="passData" />
       </div>
     </div>
   </form>
+
 </template>
-  
-
-
 <script>
 import Inputfield from "./Inputfield.vue";
 import Radiobutton from "./Radiobutton.vue";
@@ -270,12 +290,14 @@ import Donthavedoctor from "./Donthavedoctor.vue";
 import Checkbox from "./Checkbox.vue";
 import HaveDoctor from "./HaveDoctor.vue";
 import Button from "./Button.vue";
+import Dropdown from "./Dropdown.vue";
 
 //API
 import { ref } from "vue";
 
 const validMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const phoneValidaton = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}$/;
+const phoneValidaton =
+  /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}$/;
 
 export default {
   name: "Patientform",
@@ -285,6 +307,7 @@ export default {
     Radiobutton,
     Checkbox,
     Inputfield,
+    Dropdown,
     HaveDoctor,
     "check-box": Checkbox,
     HaveDoctor,
@@ -300,6 +323,51 @@ export default {
       nothaveDoctor,
     };
   },
+  created() {
+    this.doctorTypes = [
+      {
+        id: 1,
+        text: "Surgen",
+        enterd: false,
+      },
+      {
+        id: 2,
+        text: "Allergists",
+        enterd: false,
+      },
+      {
+        id: 3,
+        text: "Dermatologists",
+        enterd: false,
+      },
+      {
+        id: 4,
+        text: "Ophthalmologists",
+        enterd: false,
+      },
+      {
+        id: 5,
+        text: "Cardiologists",
+        enterd: false,
+      },
+      {
+        id: 6,
+        text: "Endocrinologists",
+        enterd: false,
+      },
+      {
+        id: 7,
+        text: "Gastroenterologists",
+        enterd: false,
+      },
+    ];
+  },
+  props:{
+     DisplaySummary: {
+          type:Boolean,
+          default:false,
+        },
+  },
   data() {
     return {
       form: {
@@ -308,17 +376,23 @@ export default {
         lname: "",
         phone: "",
         age: "",
-        errors: {
-          name: "",
-          lastname: "",
-          email: "",
-          phone: "",
-          age: "",
-        },
-        doctorTypes: [],
+        painStart: "",
+        Doctorname: "",
+        Doctoremail: "",
+        EnterdDoctorTypes: [],
         painDuration: "",
         painType: "",
         painLocation: "",
+      },
+      doctorTypes: [],
+      errors: {
+        name: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        age: "",
+        docEmaileror: "",
+        docNameError: "",
       },
       field: {
         haveDoc: "",
@@ -326,15 +400,28 @@ export default {
       },
     };
   },
+  emits:['CheckForm'],
   // Life cicle methods se prepraka na Dropdown komponentata
   // Ne se prikazuva nikade
   methods: {
-    handleForm(route){
-      console.log(route);
+    selectedDoctorsArray(t) {
+      this.doctorTypes.push(t);
+    },
+    passData() {
+      window.localStorage.setItem("form", JSON.stringify(this.$data.form));
+    
+      console.log(this.$data.form);
+
+      this.$emit('CheckForm',this.DisplaySummary);
+      
+      console.log("This is the display form in PatientFrom: " + this.DisplaySummary);
+
+      
     },
 
-
-
+    handleForm(route) {
+      console.log(route);
+    },
     painDurationtype(e) {
       this.form.painDuration = e;
     },
@@ -344,58 +431,95 @@ export default {
     painLocation(e) {
       this.form.painLocation = e;
     },
+
+    EnterdDoctor(DoctorName) {
+      this.doctorTypes = this.doctorTypes.map((doctor) =>
+        doctor.text === DoctorName
+          ? { ...doctor, enterd: !doctor.enterd }
+          : doctor
+      );
+      // for(var i = 0; i< EnterdDoctorTypes.length; i++){
+      //   if(!(this.EnterdDoctorTypes[i].includes(DoctorName))){
+
+      //   }
+      // }
+
+      this.form.EnterdDoctorTypes.push(DoctorName);
+
+      console.log(this.form.EnterdDoctorTypes);
+
+      console.log(DoctorName);
+    },
+    checkDoctarEmail(e) {
+      if (e == "doctorEmail") {
+        if (this.form.Doctoremail == "") {
+          this.errors.docEmaileror = "please enter your email addres";
+        } else {
+          console.log("vnese neso vo email");
+          this.errors.docEmaileror = "";
+        }
+        if (this.form.Doctoremail != "") {
+          if (this.form.Doctoremail.match(validMail)) {
+            this.errors.docEmaileror = "";
+          } else {
+            this.errors.docEmaileror = "Invalid Email adress!";
+          }
+        }
+      }
+      
+    },
     checkInputfield(e) {
       if (e == "name") {
         if (this.form.name == "") {
-          this.form.errors.name = "please enter your name";
+          this.errors.name = "please enter your name";
         } else {
           console.log("vnese neso vo name");
-          this.form.errors.name = "";
+          this.errors.name = "";
         }
       }
       if (e == "lname") {
         if (this.form.lname == "") {
-          this.form.errors.lastname = "please enter your last name";
+          this.errors.lastname = "please enter your last name";
         } else {
           console.log("vnese neso vo lname");
-          this.form.errors.lastname = "";
+          this.errors.lastname = "";
         }
       }
       if (e == "age") {
         if (this.form.age == "") {
-          this.form.errors.age = "please enter your name";
+          this.errors.age = "please enter your name";
         } else {
           console.log("vnese neso vo godini");
-          this.form.errors.age = "";
+          this.errors.age = "";
         }
       }
       if (e == "email") {
         if (this.form.email == "") {
-          this.form.errors.email = "please enter your email addres";
+          this.errors.email = "please enter your email addres";
         } else {
           console.log("vnese neso vo email");
-          this.form.errors.email = "";
+          this.errors.email = "";
         }
         if (this.form.email != "") {
           if (this.form.email.match(validMail)) {
-            this.form.errors.email = "";
+            this.errors.email = "";
           } else {
-            this.form.errors.email = "Invalid Email adress!";
+            this.errors.email = "Invalid Email adress!";
           }
         }
       }
       if (e == "phone") {
         if (this.form.phone == "") {
-          this.form.errors.phone = "please enter your phone number";
+          this.errors.phone = "please enter your phone number";
         } else {
           console.log("vnese neso vo phone number");
-          this.form.errors.phone = "";
+          this.errors.phone = "";
         }
         if (this.form.phone != "") {
           if (this.form.phone.match(phoneValidaton)) {
-            this.form.errors.phone = "";
+            this.errors.phone = "";
           } else {
-            this.form.errors.phone = "Invalid phone format! ";
+            this.errors.phone = "Invalid phone format! ";
           }
         }
       }
@@ -465,5 +589,9 @@ input[type="checkbox"] {
 }
 #lbl {
   display: inline-block;
+}
+.have-doctor-field {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
