@@ -15,13 +15,16 @@
       <!--
            Go vrzuvash :value="modelValue" definiran vo komponentatta
            @input = "$emit" ... so ova prakas do parent kalsata za inputut da moze da se socuva tamu so v-model
-           v-bind="attrs" => site atributi muzes da gi menuvas dinamicki poradi toa sto im gi svrzuvash tuka
+           v-bind="attrs" => site atributi mozes da gi menuvas dinamicki 
       -->
 
 
 
   </div>
 </template>
+
+
+
 <script setup>
 const props = defineProps({
    label: {
@@ -47,7 +50,7 @@ function check(e){
    console.log("this is child calling"); 
 }
 
-console.log(props);
+console.log("Props vo Input Field: " + props);
 
 
 

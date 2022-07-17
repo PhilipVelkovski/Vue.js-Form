@@ -1,11 +1,12 @@
 <template>
+
   <FormTitle
     title="Enter Patients Information"
     explanation="
     Please enter your Information so that the Doctor can contact you
     "
   />
-  <form @submit.prevent="handleForm">
+  <form @submit.prevent="passData">
     <div class="input-Inputfields">
       <Inputfield
         id="name"
@@ -66,8 +67,9 @@
        Please choose if you have a doctor or not"
       />
     </div>
-
+      <!-- Checkbox komponenti -->
     <div class="input-Inputfields">
+      <!--Checkbox komponenta za vnesuvaje true deka imash doktor go postavuva haveDoctor = true -->
       <Checkbox
         label="I Have a doctor"
         enterId="haveDoc"
@@ -75,6 +77,7 @@
         v-model:checked="haveDoctor"
         @doctors="selectedDoctorsArray"
       />
+      <!-- Checkbox komponenta za vnesuvaje true deka nemash doktor go postavuva nothaveDoctor = true -->
       <Checkbox
         label="I dont have a doctor"
         enterId="nothaveDoc"
@@ -82,15 +85,21 @@
         v-model:checked="nothaveDoctor"
       />
     </div>
+    <!-- Proveruva dali haveDoctor e posatvena na True za da go prikaze poleto za vesuvanje na tvoj doktor
+      Vensuvash Profesija na doktor i negov email i name
+     -->
     <div v-if="haveDoctor" class="input-Inputfields">
       <FormTitle
         title="Enter you'r doctor's Information"
         explanation="
-    Enter your doctor's Information so that we can contact him 
-    "
-      />
+         Enter your doctor's Information so that we can contact him "
+         />
       <div>
         <p>Enter Doctor's Profession</p>
+        <!-- Dropdown komponentata ja prefzema nizata doctorTypes
+          I custom event perpaten do PatienForm selectedDoctor so metod EnterdDoctor deklariran vo ovaa Komponenta 
+          EnterdDoctor() 
+        -->
         <Dropdown @selectedDoctor="EnterdDoctor" :doctors="doctorTypes" />
       </div>
       <div class="have-doctor-field">
@@ -108,13 +117,16 @@
           <Inputfield
             id="doctorsName"
             type="text"
+               @check="checkDoctarName"
             v-model="form.Doctorname"
             label="Doctors name"
+            :error="errors.docNameerror"
           />
         </div>
       </div>
     </div>
 
+    <!-- Proveruva dali nothaveDoctor e posatveno na True za da go prikaze poleto za vesuvanje tipot na doktor koj sto go barash -->
     <div v-if="nothaveDoctor" class="input-Inputfields">
       <Formtitle
         title="Select the type of doctor you are looking for"
@@ -122,9 +134,13 @@
       />
       <Dropdown @selectedDoctor="EnterdDoctor" :doctors="doctorTypes" />
     </div>
+    
     <p>this is i have doctor: {{ haveDoctor }}</p>
     <p>this is i dont have doctor: {{ nothaveDoctor }}</p>
-
+  
+  
+    <!-- Radio buttons i data/time input fields od komponentata input field
+     -->
     <div class="input-Inputfields">
       <h2>This is Your pain section</h2>
       <div class="calendar">
@@ -272,20 +288,23 @@
       </div>
 
       <p>{{ form.painStart }}</p>
+
       <p>this is checked for duration: {{ form.painDuration }}</p>
       <p>this is checked for pain type: {{ form.painType }}</p>
 
       <p>this is checked for pain location: {{ form.painLocation }}</p>
+       <!-- Button komponenta so custom event od child:Button.vue do Parrent:PatientForm.vue
+         so funkcuja passData -->
       <div class="buttondiv" style="text-align: end">
         <Button text="Submit" @onclickbtn="passData" />
       </div>
     </div>
+    
   </form>
-
 </template>
 <script>
 import Inputfield from "./Inputfield.vue";
-import Radiobutton from "./Radiobutton.vue";
+
 import Donthavedoctor from "./Donthavedoctor.vue";
 import Checkbox from "./Checkbox.vue";
 import HaveDoctor from "./HaveDoctor.vue";
@@ -294,8 +313,9 @@ import Dropdown from "./Dropdown.vue";
 
 //API
 import { ref } from "vue";
-
+// Regex vo za email  validMail
 const validMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+// Regex vo za telefon phoneValidaton
 const phoneValidaton =
   /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{3}$/;
 
@@ -304,7 +324,6 @@ export default {
   components: {
     Button,
     Donthavedoctor,
-    Radiobutton,
     Checkbox,
     Inputfield,
     Dropdown,
@@ -323,6 +342,9 @@ export default {
       nothaveDoctor,
     };
   },
+  // Created 
+  /*Ova se elementi na nizata deklarirana vo data 
+  */
   created() {
     this.doctorTypes = [
       {
@@ -362,15 +384,19 @@ export default {
       },
     ];
   },
-  props:{
-     DisplaySummary: {
-          type:Boolean,
-          default:false,
-        },
+  // Properti za Patient form sto da prifaka od parrent komponentata
+  props: {
+    DisplaySummary: {
+      type: Boolean,
+      default: false,
+    },
   },
+  // Site podatoci za patient se vo form objektot  
   data() {
     return {
       form: {
+        haveDoctor:'',
+        nothaveDoctor:'',
         email: "",
         name: "",
         lname: "",
@@ -379,12 +405,15 @@ export default {
         painStart: "",
         Doctorname: "",
         Doctoremail: "",
+      // Nizata od Doktori selektirani
         EnterdDoctorTypes: [],
         painDuration: "",
         painType: "",
         painLocation: "",
       },
+      // Nizata od Doktori ponudeni
       doctorTypes: [],
+      
       errors: {
         name: "",
         lastname: "",
@@ -392,36 +421,42 @@ export default {
         phone: "",
         age: "",
         docEmaileror: "",
-        docNameError: "",
+        docNameerror: "",
       },
-      field: {
-        haveDoc: "",
-        dontHaveDoc: "",
-      },
+      // field: {
+      //   haveDoc: "",
+      //   dontHaveDoc: "",
+      // },
     };
   },
-  emits:['CheckForm'],
+  // Prepraka custom event CheckForm do parrent App.vue
+  emits: ["CheckForm"],
+
   // Life cicle methods se prepraka na Dropdown komponentata
   // Ne se prikazuva nikade
   methods: {
     selectedDoctorsArray(t) {
       this.doctorTypes.push(t);
     },
-    passData() {
-      window.localStorage.setItem("form", JSON.stringify(this.$data.form));
     
+    // Button click
+   
+    passData() {
+    // So passData function go prefrlame celiot (data) object vo local storage 
+      // So key: "form" i to string - Objektot data so podatocite za pacienteot;
+   
+     window.localStorage.setItem("form", JSON.stringify(this.$data.form));  
+
+      // Ova ni e celiot data objekt od formata 
       console.log(this.$data.form);
 
-      this.$emit('CheckForm',this.DisplaySummary);
-      
-      console.log("This is the display form in PatientFrom: " + this.DisplaySummary);
 
-      
+     // Predhodno imavme definirano props DisplaySummary boolean 
+     // koj ni e false po default i dodavame na komponenta PatietnForm event CheckForm 
+      this.$emit("CheckForm", this.DisplaySummary);
+
     },
 
-    handleForm(route) {
-      console.log(route);
-    },
     painDurationtype(e) {
       this.form.painDuration = e;
     },
@@ -431,31 +466,36 @@ export default {
     painLocation(e) {
       this.form.painLocation = e;
     },
+  
 
+
+  // Ova e funkcijata prepratena od dropdownoptions komponentata
     EnterdDoctor(DoctorName) {
+      // metodot mapp prima parametar doctor pravi nova
+      // proveruva dali Doctor.text e ednakov datatype so emitnuvaniot DoctorName ako da 
+      // ja postava klasata od false na true 
       this.doctorTypes = this.doctorTypes.map((doctor) =>
-        doctor.text === DoctorName
-          ? { ...doctor, enterd: !doctor.enterd }
-          : doctor
-      );
-      // for(var i = 0; i< EnterdDoctorTypes.length; i++){
-      //   if(!(this.EnterdDoctorTypes[i].includes(DoctorName))){
-
-      //   }
-      // }
-
-      this.form.EnterdDoctorTypes.push(DoctorName);
+        doctor.text === DoctorName ? { ...doctor, enterd: !doctor.enterd } : doctor );
+     
+     // Go vnesuva selektiraniot doctor negoviot text vo nizata EnterdDoctorTypes 
+     this.form.EnterdDoctorTypes.push(DoctorName);
 
       console.log(this.form.EnterdDoctorTypes);
 
       console.log(DoctorName);
     },
+
+    // Funkcija na checkDoctorEmali na 
+    // Enter doctor email 
+    // Proveruva prvo dali e prazen fielod na blur
+    // Ako e se prikazuva please enter your email addres
+    // isto i proveruva dali e validen mail
     checkDoctarEmail(e) {
       if (e == "doctorEmail") {
         if (this.form.Doctoremail == "") {
           this.errors.docEmaileror = "please enter your email addres";
         } else {
-          console.log("vnese neso vo email");
+          console.log("vnese neso vo doctor email");
           this.errors.docEmaileror = "";
         }
         if (this.form.Doctoremail != "") {
@@ -466,8 +506,19 @@ export default {
           }
         }
       }
-      
     },
+    checkDoctarName(e){
+        if(e == "doctorsName"){
+          if(this.form.Doctorname != ""){
+            this.errors.docNameerror = "";
+          } else{
+            this.errors.docNameerror = "Veneseto go imeto na vashiot doctor";
+          }
+        }
+    },
+    // Funkcija checkInput fiend koja proveruva dali ima neshto vneseno vo Input field component
+    // Proveruva za sekoj input so soodvetno id za da ne vadi error na site fields ako edent e netocen
+    // I regex dali e valid inputot za broj i email
     checkInputfield(e) {
       if (e == "name") {
         if (this.form.name == "") {
@@ -499,7 +550,8 @@ export default {
         } else {
           console.log("vnese neso vo email");
           this.errors.email = "";
-        }
+          return true;
+        } 
         if (this.form.email != "") {
           if (this.form.email.match(validMail)) {
             this.errors.email = "";
@@ -534,7 +586,7 @@ export default {
         this.haveDoctor = false;
       }
 
-      console.log(e);
+    
     },
   },
 };

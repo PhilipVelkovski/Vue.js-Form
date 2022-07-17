@@ -1,4 +1,6 @@
 <template>
+
+<!-- Samo button komponenta so cstm click event-->
 <button @click="$emit('onclickbtn')">{{text}}</button>
 </template>
 
@@ -7,8 +9,7 @@ export default {
    props:{
      text:String,
      default:'',
-   },
-   
+   }, 
 }
 </script>
 

@@ -3,15 +3,14 @@ import Patientform from "./components/Patientform.vue";
 import Summary from "./components/Summary.vue";
 const routes = [
 	{
+		name:'Patientform',
 		path: '/Patientform',
 		component: Patientform,
 	},
     {
 		path: "/Summary",
 		component: Summary,
-       
-		name:'Summary'
-
+		name:'Summary',
 	},
 ];
 

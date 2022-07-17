@@ -1,4 +1,20 @@
-<!-- 2 -->
+<!-- 2. 
+
+Dropdown komponentata prima Niza od parrent komponentata 
+nizata e sostavena od objekti ! 
+
+vo for ciklus == > v-for="doctor in doctors"  [ za sekoj doctor vo nizata doctors ]     Doctor e objekt
+prikazi komponenta za toj objekt (doctor)  :key="doctor.id" mora da ima key za redosledot odnosno bindnat counter  
+
+
+Sega sekoj objekt si e svoja komponenta ! 
+I se prikazuva kako komponenta !
+
+
+
+Objektot se prepraka na child komponentata Dropdownoptions;
+
+ -->
 <template>
   
   <div :key="doctor.id" v-for="doctor in doctors">
@@ -12,6 +28,8 @@ export default {
   components: { Dropdownoptions },
   name: "Dropdown",
   inheritAttrs: false,
+  
+  
   props: {
     doctors: Array,
   },
