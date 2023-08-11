@@ -1,16 +1,18 @@
 # Vue.js-Form
 
-Forma za registracija na pacient
-Za biranje na lekar 
-i dodeluvanje.
-sostojbata na pacientot vreme na povreda i 
-lokacija na povreda
+Patient registration form,
+choosing a doctor assigning the patient's condition
+time of injury and location of injury.
 
 ## Basics
 
 ## Project setup
 ```
 npm install
+```
+## Start project 
+```
+npm run serve
 ```
 
 ### Compiles and hot-reloads for development
